@@ -25,7 +25,7 @@ app.controller('pokemon', function($scope, $http) {
 			for (var i in $scope.team) {
 				saveFile.push($scope.team[i].id);
 			}
-			$http.post('http://desolate-cove-17354.herokuapp.com/save', saveFile).then(function(result) {
+			$http.post('http://desolate-cove-17354.herokuapp.com/teams/save', saveFile).then(function(result) {
 				$scope.success = "Team saved, your team ID is:" + result.data;
 				$scope.error = '';
 			}, function () {
