@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html ng-app="pokeTeam">
+	<head>
+		<title>Pokemon Team Builder</title>
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+		<link href='https://fonts.googleapis.com/css?family=Arimo:400,700' rel='stylesheet' type='text/css'>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-rc.1/angular.js"></script>
+		<script src="app.js"></script>
+	</head>
+	<body ng-controller="pokemon">
+		<header>
+			<h1>Pokemon Team Builder</h1>
+			<span>
+				<label for="load-team">Load team:</label>
+				<input type="text" ng-model="load" placeholder="Team Id" id="load-team" name="loadBar">
+				<button ng-click="loadTeam()">Load</button>
+			</span>
+		</header>
+		<main>
+			<header>
+				<span ng-hide="!error" class="error">{{error}}</span>
+				<input type="text" ng-model="search" id="search-bar" name="searchbar" placeholder="Search for a Pokemon" ng-init="search=''">
+				<div ng-hide="search.length < 3" class="search-results">
+					<ul ng-repeat="pokemon in pokedex | filter:search | limitTo:5">
+						<li ng-click="selectPokemon(pokemon)">{{pokemon.name}}</li>
+					</ul>
+				</div>
+			</header>
+			<section class="team-list">
+				<ul ng-repeat="pokemon in team">
+					<li>
+						<ul>
+							<li><img src="http://pokeapi.co{{pokemon.sprite}}" alt="{{pokemon.name}}"></li>
+							<li><h2>{{pokemon.name}}</h2></li>
+							<li>#{{pokemon.id}}</li>
+							<li><span ng-repeat="type in pokemon.types"><img src="images/{{type.name}}.png" alt="{{type.name}}"></span></li>
+							<li><span ng-click="remove($index)" class="fa fa-times"></span></li>
+						</ul>
+					</li>
+				</ul>
+			</section>
+			<section class="stat-box">
+			</section>
+			<section class="type-chart">
+
+			</section>
+		</main>
+	</body>
+</html>

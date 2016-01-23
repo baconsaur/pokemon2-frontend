@@ -1,0 +1,44 @@
+* {
+  padding: 0;
+  margin: 0; }
+
+body {
+  font-family: 'Arimo', sans-serif; }
+
+input {
+  border-radius: 5px;
+  border: 1px solid gray;
+  outline: none; }
+
+header {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center; }
+
+main {
+  width: 100%; }
+  main header {
+    display: flex;
+    flex-direction: column; }
+  main input {
+    font-size: 1rem;
+    padding: 0.3rem;
+    margin: 2rem auto; }
+
+.team-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-end; }
+  .team-list li {
+    display: flex;
+    flex-direction: column;
+    text-align: center; }
+    .team-list li li {
+      display: flex;
+      flex-direction: row;
+      justify-content: center; }
+
+/*# sourceMappingURL=style.css.map */
