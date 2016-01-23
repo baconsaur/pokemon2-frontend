@@ -9,11 +9,33 @@ app.controller('pokemon', function($scope, $http) {
 		apiString = 'http://desolate-cove-17354.herokuapp.com/teams/' + $scope.load;
 		$http.get(apiString).then(function(team) {
 			for (var i in team.data) {
+				$scope.team = [];
 				$scope.loadSelected(team.data[i]);
+				$scope.success = "Team ID " + $scope.load + " loaded";
+				$scope.error = '';
 			}
 		}, function() {
 			$scope.error = "Invalid team ID";
+			$scope.success = '';
 		});	
+	};
+	$scope.saveTeam = function () {
+		if ($scope.team.length > 0) {
+			var saveFile = [];
+			for (var i in $scope.team) {
+				saveFile.push($scope.team[i].id);
+			}
+			$http.post('http://desolate-cove-17354.herokuapp.com/save', saveFile).then(function(result) {
+				$scope.success = "Team saved, your team ID is:" + result.data;
+				$scope.error = '';
+			}, function () {
+				$scope.error = "Failed to save your team, try again later";
+			$scope.success = '';
+			});
+		} else {
+			$scope.error = "Please add at least one Pokemon to your team!";
+			$scope.success = '';
+		}
 	};
 	$scope.selectPokemon = function(pokemon) {
 		if($scope.team.length < 6) {

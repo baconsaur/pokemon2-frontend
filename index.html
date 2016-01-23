@@ -14,12 +14,14 @@
 			<span>
 				<label for="load-team">Load team:</label>
 				<input type="text" ng-model="load" placeholder="Team Id" id="load-team" name="loadBar">
-				<button ng-click="loadTeam()">Load</button>
+				<button ng-click="loadTeam()">Load</button> | 
+				<button ng-click="saveTeam()">Save</button>
 			</span>
 		</header>
 		<main>
 			<header>
-				<span ng-hide="!error" class="error">{{error}}</span>
+				<span ng-hide="!success" class="success"><span class="fa fa-check-circle"></span> {{success}} <span class="fa fa-times" ng-click="success=''"></span></span>
+				<span ng-hide="!error" class="error"><span class="fa fa-exclamation-circle"></span> {{error}} <span class="fa fa-times" ng-click="error=''"></span></span>
 				<input type="text" ng-model="search" id="search-bar" name="searchbar" placeholder="Search for a Pokemon" ng-init="search=''">
 				<div ng-hide="search.length < 3" class="search-results">
 					<ul ng-repeat="pokemon in pokedex | filter:search | limitTo:5">
@@ -41,6 +43,7 @@
 				</ul>
 			</section>
 			<section class="stat-box">
+
 			</section>
 			<section class="type-chart">
 

@@ -8,6 +8,7 @@ body {
 input {
   border-radius: 5px;
   border: 1px solid gray;
+  padding: 0.3rem;
   outline: none; }
 
 header {
@@ -24,7 +25,6 @@ main {
     flex-direction: column; }
   main input {
     font-size: 1rem;
-    padding: 0.3rem;
     margin: 2rem auto; }
 
 .team-list {
@@ -40,5 +40,26 @@ main {
       display: flex;
       flex-direction: row;
       justify-content: center; }
+
+.error, .success {
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 50%;
+  font-size: 1rem;
+  box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.35);
+  margin-top: 1rem; }
+
+.error {
+  background-color: #FFDDDD;
+  color: red; }
+
+.success {
+  background-color: #DDFFDD;
+  color: green; }
 
 /*# sourceMappingURL=style.css.map */
