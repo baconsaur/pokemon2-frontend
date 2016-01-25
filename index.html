@@ -6,6 +6,7 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 		<link href='https://fonts.googleapis.com/css?family=Pragati+Narrow:400,700' rel='stylesheet' type='text/css'>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-rc.1/angular.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-rc.1/angular-animate.js"></script>
 		<script src="app.js"></script>
 	</head>
 	<body ng-controller="pokemon">
@@ -23,11 +24,13 @@
 			<span ng-show="loading" class="fa fa-spinner fa-spin fa-2x"></span>
 			<span ng-hide="!success" class="success"><span class="fa fa-check-circle"></span> {{success}} <span class="fa fa-times" ng-click="success=''"></span></span>
 			<span ng-hide="!error" class="error"><span class="fa fa-exclamation-circle"></span> {{error}} <span class="fa fa-times" ng-click="error=''"></span></span>
-			<input type="text" ng-model="search" id="search-bar" name="searchbar" placeholder="Search for a Pokemon" ng-init="search=''">
-			<div ng-hide="search.length < 3" class="search-results">
-				<ul ng-repeat="pokemon in pokedex | filter:search | limitTo:5">
-					<li ng-click="selectPokemon(pokemon)">{{pokemon.name}}</li>
-				</ul>
+			<div>
+				<input type="text" ng-model="search" id="search-bar" name="searchbar" placeholder="Search for a Pokemon" ng-init="search=''">
+				<div ng-hide="search.length < 3" class="search-results">
+					<ul>
+						<li ng-repeat="pokemon in pokedex | filter:search | limitTo:5" ng-click="selectPokemon(pokemon)">{{pokemon.name}}</li>
+					</ul>
+				</div>
 			</div>
 		</header>
 		<section class="team-list">
@@ -35,6 +38,10 @@
 				<li>
 					<ul>
 						<li><img src="http://pokeapi.co{{pokemon.sprite}}" alt="{{pokemon.name}}"></li>
+						<li ng-hide="evolutions($index) === false" ng-click="evolve($index, pokemon.evolutions[0].resource_uri)">
+							<span class="fa fa-arrow-circle-up"></span>
+							<p>Evolve to {{pokemon.evolutions[0].to}}</p>
+						</li>
 						<li><h2>{{pokemon.name}}</h2></li>
 						<li>#{{pokemon.id}}</li>
 						<li><span ng-repeat="type in pokemon.types"><img src="images/{{type.name}}.png" alt="{{type.name}}"> </span></li>

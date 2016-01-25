@@ -40,10 +40,31 @@ main {
     flex-direction: column;
     background: linear-gradient(#2a2923, #62615d);
     padding: 0; }
-    main header input {
+    main header div {
       width: 20%;
-      font-size: 1rem;
+      position: relative;
       margin: 2rem auto; }
+      main header div input {
+        width: 100%;
+        font-size: 1rem; }
+      main header div ul {
+        list-style: none;
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background-color: rgba(35, 35, 35, 0.85);
+        position: absolute;
+        border: 1px solid black;
+        margin: 0 auto;
+        padding: 0 6rem;
+        top: -2rem;
+        left: -5.5rem;
+        box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.35);
+        z-index: 100; }
+        main header div ul li:hover {
+          color: #baf39c; }
 
 button {
   background: linear-gradient(#62615d, #2a2923);
@@ -69,14 +90,24 @@ button {
     display: flex;
     flex-direction: column;
     text-align: center;
-    line-height: 1.4rem; }
+    line-height: 1.4rem;
+    position: relative; }
+    .team-list li:hover li:nth-child(2) {
+      display: block; }
     .team-list li li {
       display: flex;
       flex-direction: row;
       justify-content: center; }
       .team-list li li img {
         padding: 0 0.1rem; }
-      .team-list li li:nth-child(3) {
+      .team-list li li:nth-child(2) {
+        display: none;
+        position: absolute;
+        top: 50px;
+        left: 12px;
+        text-shadow: 0 0 5px white;
+        font-weight: bold; }
+      .team-list li li:nth-child(4) {
         font-size: 1.5rem; }
       .team-list li li:last-child:hover {
         color: #ffc7a3; }
@@ -158,6 +189,20 @@ button {
   border-color: #00AA00;
   color: green;
   opacity: 0.7; }
+
+.ng-show {
+  transition: 0.2s linear all;
+  opacity: 1; }
+
+.ng-show.ng-show-active {
+  opacity: 0; }
+
+.ng-hide {
+  transition: 0.2s linear all;
+  opacity: 0; }
+
+.ng-hide.ng-hide-active {
+  opacity: 1; }
 
 @media (max-width: 850px) {
   #search-bar {

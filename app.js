@@ -1,4 +1,4 @@
-app = angular.module('pokeTeam', []);
+app = angular.module('pokeTeam', ['ngAnimate']);
 
 app.controller('pokemon', function($scope, $http) {
 	$scope.loading = true;
@@ -60,7 +60,7 @@ app.controller('pokemon', function($scope, $http) {
 		}
 		$scope.search = '';
 	};
-	$scope.loadSelected = function(id) {
+	$scope.loadSelected = function(id, evolution) {
 		$scope.loading = true;
 		var apiString = 'http://pokeapi.co/api/v1/pokemon/' + id;
 		$http.get(apiString).then(function(pokemon) {
@@ -87,11 +87,26 @@ app.controller('pokemon', function($scope, $http) {
 			}
 			newPokemon.base_stats.total = total;
 			$scope.loading = false;
-			$scope.team.push(newPokemon);
+			if (evolution) {
+				$scope.team[evolution - 1] = newPokemon;
+			} else {
+				$scope.team.push(newPokemon);
+			}
 		});
 	};
 	$scope.remove = function(index) {
 		$scope.team.splice(index, 1);
 	};
+	$scope.evolutions = function(index) {
+		var pokemon = $scope.team[index];
+		if (pokemon && pokemon.evolutions.length > 0 && pokemon.evolutions.length < 4 && pokemon.evolutions[0].detail !== "mega") {
+			return true;
+		} else {
+			return false;
+		}
+	};
+	$scope.evolve = function(index, uri) {
+		var id = uri.split('/')[4];
+		$scope.loadSelected(id, index + 1);
+	};
 });
-
