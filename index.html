@@ -10,11 +10,11 @@
 	</head>
 	<body ng-controller="pokemon">
 		<header>
-			<h1><img src="images/pokeball.png"> Pokemon Team Builder</h1>
+			<h1><img src="images/pokeball.png" alt="pokeball"> Pokemon Team Builder</h1>
 			<span>
 				<label for="load-team">Load team:</label>
-				<input type="text" ng-model="load" placeholder="Team ID" id="load-team" name="loadBar">
-				<button ng-click="loadTeam()">Load</button> | 
+				<input type="text" ng-model="load" placeholder="ID" id="load-team" name="loadBar">
+				<button ng-click="loadTeam()">Load</button> <img src="images/pokeball2.png" alt="pokeball"> 
 				<button ng-click="saveTeam()">Save</button>
 			</span>
 		</header>
@@ -37,7 +37,7 @@
 						<li><img src="http://pokeapi.co{{pokemon.sprite}}" alt="{{pokemon.name}}"></li>
 						<li><h2>{{pokemon.name}}</h2></li>
 						<li>#{{pokemon.id}}</li>
-						<li><span ng-repeat="type in pokemon.types"><img src="images/{{type.name}}.png" alt="{{type.name}}"></span></li>
+						<li><span ng-repeat="type in pokemon.types"><img src="images/{{type.name}}.png" alt="{{type.name}}"> </span></li>
 						<li><span ng-click="remove($index)" class="fa fa-times"></span></li>
 					</ul>
 				</li>
@@ -50,37 +50,51 @@
 					<ul>
 						<li>HP
 							<div class="max">
-								<div class="base" style="width: {{pokemon.base_stats.hp / max_stats.hp * 100}}%"></div>
+								<div class="base" style="width: {{pokemon.base_stats.hp / max_stats.hp * 100}}%">
+									<span>{{pokemon.base_stats.hp}}</span>
+								</div>
 							</div>
 						</li>
 						<li>Atk
 							<div class="max">
-								<div class="base" style="width: {{pokemon.base_stats.attack / max_stats.attack * 100}}%"></div>
+								<div class="base" style="width: {{pokemon.base_stats.attack / max_stats.attack * 100}}%">
+									<span>{{pokemon.base_stats.attack}}</span>
+								</div>
 							</div>
 						</li>
 						<li>Def
 							<div class="max">
-								<div class="base" style="width: {{pokemon.base_stats.defense / max_stats.defense * 100}}%"></div>
+								<div class="base" style="width: {{pokemon.base_stats.defense / max_stats.defense * 100}}%">
+									<span>{{pokemon.base_stats.defense}}</span>
+								</div>
 							</div>
 						</li>
 						<li>S.Atk
 							<div class="max">
-								<div class="base" style="width: {{pokemon.base_stats.sp_atk / max_stats.sp_atk * 100}}%"></div>
+								<div class="base" style="width: {{pokemon.base_stats.sp_atk / max_stats.sp_atk * 100}}%">
+									<span>{{pokemon.base_stats.sp_atk}}</span>
+								</div>
 							</div>
 						</li>
 						<li>S.Def
 							<div class="max">
-								<div class="base" style="width: {{pokemon.base_stats.sp_def / max_stats.sp_def * 100}}%"></div>
+								<div class="base" style="width: {{pokemon.base_stats.sp_def / max_stats.sp_def * 100}}%">
+									<span>{{pokemon.base_stats.sp_def}}</span>
+								</div>
 							</div>
 						</li>
 						<li>Speed
 							<div class="max">
-								<div class="base" style="width: {{pokemon.base_stats.speed / max_stats.speed * 100}}%"></div>
+								<div class="base" style="width: {{pokemon.base_stats.speed / max_stats.speed * 100}}%">
+									<span>{{pokemon.base_stats.speed}}</span>
+								</div>
 							</div>
 						</li>
 						<li>Total
 							<div class="max">
-								<div class="base" style="width: {{pokemon.base_stats.total / max_stats.total * 100}}%"></div>
+								<div class="base" style="width: {{pokemon.base_stats.total / max_stats.total * 100}}%">
+									<span>{{pokemon.base_stats.total}}</span>
+								</div>
 							</div>
 						</li>
 					</ul>

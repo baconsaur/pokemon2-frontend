@@ -31,7 +31,7 @@ header {
       padding: 0.2rem; }
   header input {
     padding: 0.3rem 0.5rem;
-    width: 2rem; }
+    width: 1rem; }
 
 main {
   width: 100%; }
@@ -74,8 +74,12 @@ button {
       display: flex;
       flex-direction: row;
       justify-content: center; }
+      .team-list li li img {
+        padding: 0 0.1rem; }
       .team-list li li:nth-child(3) {
         font-size: 1.5rem; }
+      .team-list li li:last-child:hover {
+        color: #ffc7a3; }
 
 .stat-box {
   width: 80%;
@@ -95,7 +99,7 @@ button {
     border-radius: 5px;
     padding: 0 1rem 1rem 1rem;
     background-color: #3f3d36;
-    min-width: 120px;
+    min-width: 140px;
     margin-bottom: 1rem; }
   .stat-box li {
     width: 100%;
@@ -120,7 +124,16 @@ button {
   height: 1rem;
   width: 0;
   background-color: #ffc7a3;
-  border-radius: 5px; }
+  border-radius: 5px;
+  position: relative; }
+  .base span {
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: -0.3rem;
+    left: 0.2rem;
+    color: #CC0000;
+    font-size: 1rem; }
 
 .error, .success {
   border: 1px solid;
@@ -137,12 +150,14 @@ button {
 .error {
   background-color: #ffc7a3;
   border-color: #CC0000;
-  color: red; }
+  color: red;
+  opacity: 0.7; }
 
 .success {
   background-color: #baf39c;
   border-color: #00AA00;
-  color: green; }
+  color: green;
+  opacity: 0.7; }
 
 @media (max-width: 850px) {
   #search-bar {
