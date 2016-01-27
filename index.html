@@ -28,23 +28,19 @@
 				<input type="text" ng-model="search" id="search-bar" name="searchbar" placeholder="Search for a Pokemon" ng-init="search=''">
 				<div ng-hide="search.length < 3" class="search-results">
 					<ul>
-						<li ng-repeat="pokemon in pokedex | filter:search | limitTo:5" ng-click="selectPokemon(pokemon)">{{pokemon.name}}</li>
+						<li ng-repeat="pokemon in pokedex | filter:search | limitTo:5" ng-click="selectPokemon(pokemon.entry_number)">{{pokemon.pokemon_species.name}}</li>
 					</ul>
 				</div>
 			</div>
 		</header>
 		<section class="team-list">
-			<ul ng-repeat="pokemon in team">
-				<li>
+			<ul>
+				<li ng-repeat="pokemon in team">
 					<ul>
 						<li><img src="http://pokeapi.co{{pokemon.sprite}}" alt="{{pokemon.name}}"></li>
-						<li ng-hide="evolutions($index) === false" ng-click="evolve($index, pokemon.evolutions[0].resource_uri)">
-							<span class="fa fa-arrow-circle-up"></span>
-							<p>Evolve to {{pokemon.evolutions[0].to}}</p>
-						</li>
 						<li><h2>{{pokemon.name}}</h2></li>
 						<li>#{{pokemon.id}}</li>
-						<li><span ng-repeat="type in pokemon.types"><img src="images/{{type.name}}.png" alt="{{type.name}}"> </span></li>
+						<li><span ng-repeat="type in pokemon.types"><img src="images/{{type.name}}.png" alt="{{type.name}}"></span></li>
 						<li><span ng-click="remove($index)" class="fa fa-times"></span></li>
 					</ul>
 				</li>
@@ -104,6 +100,17 @@
 								</div>
 							</div>
 						</li>
+					</ul>
+					<label for="ability">Ability:</label>
+					<select id="ability">
+						<option ng-repeat="ability in pokemon.abilities" value="{{ability.name}}">{{ability.name}}<option>
+					</select>
+					<label for="moves">Moves:</label>
+					<select id="moves" ng-model="moveSelect" ng-change="addMove($index, {id: moveSelect}); moveSelect=''">
+						<option ng-repeat="move in pokemon.moves" value="{{parseUrl(move.url)}}">{{move.name}}<option>
+					</select>
+					<ul class="moveset">
+						<li ng-repeat="moves in pokemon.moveset track by $index" ng-click="pokemon.moveset.splice($index, 1)">{{moves.name}} <img src="images/{{moves.type}}.png" alt="{{moves.type}}"></li>
 					</ul>
 					</div>
 				</li>

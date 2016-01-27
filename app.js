@@ -2,8 +2,8 @@ app = angular.module('pokeTeam', ['ngAnimate']);
 
 app.controller('pokemon', function($scope, $http) {
 	$scope.loading = true;
-	$http.get('http://pokeapi.co/api/v1/pokedex/1').then(function(pokedex) {
-		$scope.pokedex = pokedex.data.pokemon;
+	$http.get('http://beta.pokeapi.co/api/v2/pokedex/1').then(function(pokedex) {
+		$scope.pokedex = pokedex.data.pokemon_entries;
 		$scope.loading = false;
 	});
 	$scope.max_stats = {
@@ -23,10 +23,10 @@ app.controller('pokemon', function($scope, $http) {
 			for (var i in team.data) {
 				$scope.team = [];
 				$scope.loadSelected(team.data[i]);
-				$scope.success = "Team ID " + $scope.load + " loaded";
 				$scope.error = '';
 			}
 			$scope.loading = false;
+			$scope.success = "Team ID " + $scope.load + " loaded";
 		}, function() {
 			$scope.error = "Invalid team ID";
 			$scope.success = '';
@@ -56,57 +56,71 @@ app.controller('pokemon', function($scope, $http) {
 	};
 	$scope.selectPokemon = function(pokemon) {
 		if($scope.team.length < 6) {
-			$scope.loadSelected(pokemon.resource_uri.split('/')[3]);
+			$scope.loadSelected(pokemon);
 		}
 		$scope.search = '';
+		$scope.loading = false;
 	};
-	$scope.loadSelected = function(id, evolution) {
+	$scope.loadSelected = function(id) {
 		$scope.loading = true;
-		var apiString = 'http://pokeapi.co/api/v1/pokemon/' + id;
+		var apiString = 'http://beta.pokeapi.co/api/v2/pokemon/' + id;
 		$http.get(apiString).then(function(pokemon) {
 			newPokemon = {
 				name: pokemon.data.name,
-				id: pokemon.data.national_id,
-				sprite: '/media/img/' + pokemon.data.national_id + '.png',
+				id: id,
+				sprite: '/media/img/' + id + '.png',
 				types: pokemon.data.types,
 				base_stats: {
-					hp: pokemon.data.hp,
-					attack: pokemon.data.attack,
-					defense: pokemon.data.defense,
-					speed: pokemon.data.speed,
-					sp_atk: pokemon.data.sp_atk,
-					sp_def: pokemon.data.sp_def
+					hp: pokemon.data.stats[5].base_stat,
+					attack: pokemon.data.stats[4].base_stat,
+					defense: pokemon.data.stats[3].base_stat,
+					speed: pokemon.data.stats[0].base_stat,
+					sp_atk: pokemon.data.stats[2].base_stat,
+					sp_def: pokemon.data.stats[1].base_stat,
 				},
-				moves: pokemon.data.moves,
-				abilities: pokemon.data.abilities,
-				evolutions: pokemon.data.evolutions
+				moveset: []
 			};
 			var total = 0;
 			for(var i in newPokemon.base_stats) {
 				total += newPokemon.base_stats[i];
 			}
 			newPokemon.base_stats.total = total;
-			$scope.loading = false;
-			if (evolution) {
-				$scope.team[evolution - 1] = newPokemon;
-			} else {
-				$scope.team.push(newPokemon);
+			var moves = [];
+			for (i in pokemon.data.moves) {
+				moves.push(pokemon.data.moves[i].move);
 			}
+			newPokemon.moves = moves;
+			var abilities = [];
+			for (i in pokemon.data.abilities) {
+				abilities.push(pokemon.data.abilities[i].ability);
+			}
+			newPokemon.abilities = abilities;
+			$scope.team.push(newPokemon);
 		});
 	};
 	$scope.remove = function(index) {
 		$scope.team.splice(index, 1);
 	};
-	$scope.evolutions = function(index) {
-		var pokemon = $scope.team[index];
-		if (pokemon && pokemon.evolutions.length > 0 && pokemon.evolutions.length < 4 && pokemon.evolutions[0].detail !== "mega") {
-			return true;
+	$scope.addMove = function (index, move) {
+		if($scope.team[index].moveset.length < 4) {
+			var apiString = 'http://beta.pokeapi.co/api/v2/move/' + move.id;
+			$http.get(apiString).then(function(moveData) {
+				$scope.team[index].moveset.push({
+					id: move.id,
+					name: moveData.data.name.replace(/-/g, ' '),
+					type: moveData.data.type.name,
+					pp: moveData.data.pp,
+					accuracy: moveData.data.accuracy,
+					power: moveData.data.power,
+					damage_class: moveData.data.damage_class.name,
+					effect: moveData.data.effect_entries[0].effect
+				});
+			});
 		} else {
-			return false;
+			$scope.error = 'A Pokemon can\'t know more than four moves!';
 		}
 	};
-	$scope.evolve = function(index, uri) {
-		var id = uri.split('/')[4];
-		$scope.loadSelected(id, index + 1);
+	$scope.parseUrl = function (url) {
+		return url.split('/')[6];
 	};
 });

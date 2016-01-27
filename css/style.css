@@ -74,7 +74,7 @@ button {
   border-radius: 5px;
   outline: none; }
 
-.team-list {
+.team-list > ul {
   width: 80%;
   margin: 0 auto 1rem auto;
   display: flex;
@@ -82,34 +82,25 @@ button {
   justify-content: space-around;
   align-items: flex-end;
   min-width: 120px; }
-  .team-list img {
+  .team-list > ul img {
     max-width: 120px; }
-  .team-list h2 {
+  .team-list > ul h2 {
     color: #2a2923; }
-  .team-list li {
+  .team-list > ul li {
     display: flex;
     flex-direction: column;
     text-align: center;
     line-height: 1.4rem;
     position: relative; }
-    .team-list li:hover li:nth-child(2) {
-      display: block; }
-    .team-list li li {
+    .team-list > ul li li {
       display: flex;
       flex-direction: row;
       justify-content: center; }
-      .team-list li li img {
+      .team-list > ul li li img {
         padding: 0 0.1rem; }
-      .team-list li li:nth-child(2) {
-        display: none;
-        position: absolute;
-        top: 50px;
-        left: 12px;
-        text-shadow: 0 0 5px white;
-        font-weight: bold; }
-      .team-list li li:nth-child(4) {
+      .team-list > ul li li:nth-child(4) {
         font-size: 1.5rem; }
-      .team-list li li:last-child:hover {
+      .team-list > ul li li:last-child:hover {
         color: #ffc7a3; }
 
 .stat-box {
@@ -190,18 +181,18 @@ button {
   color: green;
   opacity: 0.7; }
 
-.ng-show {
+.ng-show:not(header ul) {
   transition: 0.2s linear all;
   opacity: 1; }
 
-.ng-show.ng-show-active {
+.ng-show.ng-show-active:not(header ul) {
   opacity: 0; }
 
-.ng-hide {
+.ng-hide:not(header ul) {
   transition: 0.2s linear all;
   opacity: 0; }
 
-.ng-hide.ng-hide-active {
+.ng-hide.ng-hide-active:not(header ul) {
   opacity: 1; }
 
 @media (max-width: 850px) {
