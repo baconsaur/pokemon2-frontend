@@ -15,7 +15,7 @@
 			<span>
 				<label for="load-team">Load team:</label>
 				<input type="text" ng-model="load" placeholder="ID" id="load-team" name="loadBar">
-				<button ng-click="loadTeam()">Load</button> <img src="images/pokeball2.png" alt="pokeball"> 
+				<button ng-click="loadTeam()">Load</button> <img src="images/pokeball2.png" alt="pokeball">
 				<button ng-click="saveTeam()">Save</button>
 			</span>
 		</header>
@@ -47,7 +47,7 @@
 			</ul>
 		</section>
 		<section class="stat-box">
-			<ul ng-repeat="pokemon in team">
+			<ul ng-repeat="pokemon in team track by $index">
 				<li>
 					<h3>{{pokemon.name}}</h3>
 					<ul>
@@ -107,7 +107,7 @@
 					</select>
 					<label for="moves">Moves:</label>
 					<select id="moves" ng-model="moveSelect" ng-change="addMove($index, {id: moveSelect}); moveSelect=''">
-						<option ng-repeat="move in pokemon.moves" value="{{parseUrl(move.url)}}">{{move.name}}<option>
+						<option ng-repeat="move in pokemon.moves track by $index" value="{{parseUrl(move.url)}}">{{move.name}}<option>
 					</select>
 					<ul class="moveset">
 						<li ng-repeat="moves in pokemon.moveset track by $index" ng-click="pokemon.moveset.splice($index, 1)">{{moves.name}} <img src="images/{{moves.type}}.png" alt="{{moves.type}}"></li>
